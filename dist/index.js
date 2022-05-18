@@ -16340,12 +16340,12 @@ const saveFilename = 'soteria-report.sarif';
 async function run() {
     try {
       const token = core.getInput('soteria-token', {required: true});
-      const path = core.getInput('path', {required: false}) || "";
-      const commit = github.context.sha || '';
-      const repoName = github.context.payload.repository? github.context.payload.repository.name : "";
+      const path = github.path;
+      const commit = github.sha || '';
+      const repoName = github.repository.name;
       // TODO: Better handling of repos without infos.
-      const isPrivate = github.context.payload.repository? github.context.payload.repository.private : true;
-      const ref = github.context.ref;
+      const isPrivate = github.repository.private;
+      const ref = github.ref;
       let tag = '';
       if (ref) {
         const refSegments = ref.split('/');
